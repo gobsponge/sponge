@@ -1,1 +1,64 @@
-🧽
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      background: #f0f0f0;
+      border-radius: 8px;
+    }
+
+    .sponge {
+      font-size: 48px;
+      animation: rotate 2s linear infinite;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .controls {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .speed-control {
+      padding: 8px;
+      margin: 0 4px;
+      border: none;
+      border-radius: 4px;
+      background: #e0e0e0;
+      cursor: pointer;
+    }
+
+    .speed-control:hover {
+      background: #d0d0d0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sponge">🧽</div>
+  </div>
+  <div class="controls">
+    <button class="speed-control" onclick="adjustSpeed(0.5)">Slower</button>
+    <button class="speed-control" onclick="adjustSpeed(2)">Faster</button>
+  </div>
+
+  <script>
+    function adjustSpeed(factor) {
+      const sponge = document.querySelector('.sponge');
+      const currentDuration = parseFloat(getComputedStyle(sponge).animationDuration);
+      sponge.style.animationDuration = (currentDuration / factor) + 's';
+    }
+  </script>
+</body>
+</html>
