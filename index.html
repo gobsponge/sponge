@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
     .container {
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 16/9;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 200px;
       background: #f0f0f0;
       border-radius: 8px;
+      margin-bottom: 20px;
     }
 
     .sponge {
-      font-size: 48px;
+      font-size: clamp(32px, 10vw, 64px);
       animation: rotate 2s linear infinite;
     }
 
@@ -26,21 +45,42 @@
     }
 
     .controls {
-      margin-top: 20px;
-      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .speed-control {
-      padding: 8px;
-      margin: 0 4px;
+      padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       background: #e0e0e0;
       cursor: pointer;
+      font-size: clamp(14px, 4vw, 16px);
+      transition: background-color 0.2s;
     }
 
     .speed-control:hover {
       background: #d0d0d0;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        aspect-ratio: 1/1;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .speed-control {
+        width: 100%;
+        padding: 12px;
+      }
     }
   </style>
 </head>
@@ -51,13 +91,21 @@
   <div class="controls">
     <button class="speed-control" onclick="adjustSpeed(0.5)">Slower</button>
     <button class="speed-control" onclick="adjustSpeed(2)">Faster</button>
+    <button class="speed-control" onclick="resetSpeed()">Reset Speed</button>
   </div>
 
   <script>
+    const defaultDuration = 2; // seconds
+    
     function adjustSpeed(factor) {
       const sponge = document.querySelector('.sponge');
       const currentDuration = parseFloat(getComputedStyle(sponge).animationDuration);
       sponge.style.animationDuration = (currentDuration / factor) + 's';
+    }
+
+    function resetSpeed() {
+      const sponge = document.querySelector('.sponge');
+      sponge.style.animationDuration = defaultDuration + 's';
     }
   </script>
 </body>
