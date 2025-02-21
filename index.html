@@ -33,6 +33,7 @@
     .emoji {
       font-size: clamp(32px, 10vw, 64px);
       animation: rotate 2s linear infinite;
+      transition: transform 0.15s, opacity 0.15s;
     }
 
     @keyframes rotate {
@@ -93,10 +94,12 @@
     <button class="speed-control" onclick="adjustSpeed(2)">Faster</button>
     <button class="speed-control" onclick="resetSpeed()">Reset Speed</button>
     <button class="speed-control" onclick="changeEmoji()">I'm Feeling Lucky</button>
+    <button class="speed-control" onclick="restoreSponge()">Click to Sponge</button>
   </div>
 
   <script>
     const defaultDuration = 2; // seconds
+    const defaultEmoji = '🧽';
     
     // Array of fun emojis that look good when rotating
     const emojis = [
@@ -127,14 +130,24 @@
         newEmoji = emojis[Math.floor(Math.random() * emojis.length)];
       } while (newEmoji === currentEmoji);
       
-      // Add a small animation when changing emoji
-      emoji.style.transform = 'scale(0.5)';
-      emoji.style.opacity = '0';
+      animateEmojiChange(emoji, newEmoji);
+    }
+
+    function restoreSponge() {
+      const emoji = document.querySelector('.emoji');
+      if (emoji.textContent !== defaultEmoji) {
+        animateEmojiChange(emoji, defaultEmoji);
+      }
+    }
+
+    function animateEmojiChange(element, newEmoji) {
+      element.style.transform = 'scale(0.5)';
+      element.style.opacity = '0';
       
       setTimeout(() => {
-        emoji.textContent = newEmoji;
-        emoji.style.transform = 'scale(1)';
-        emoji.style.opacity = '1';
+        element.textContent = newEmoji;
+        element.style.transform = 'scale(1)';
+        element.style.opacity = '1';
       }, 150);
     }
   </script>
