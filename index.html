@@ -30,7 +30,7 @@
       margin-bottom: 20px;
     }
 
-    .sponge {
+    .emoji {
       font-size: clamp(32px, 10vw, 64px);
       animation: rotate 2s linear infinite;
     }
@@ -86,26 +86,56 @@
 </head>
 <body>
   <div class="container">
-    <div class="sponge">🧽</div>
+    <div class="emoji">🧽</div>
   </div>
   <div class="controls">
     <button class="speed-control" onclick="adjustSpeed(0.5)">Slower</button>
     <button class="speed-control" onclick="adjustSpeed(2)">Faster</button>
     <button class="speed-control" onclick="resetSpeed()">Reset Speed</button>
+    <button class="speed-control" onclick="changeEmoji()">Random Emoji</button>
   </div>
 
   <script>
     const defaultDuration = 2; // seconds
     
+    // Array of fun emojis that look good when rotating
+    const emojis = [
+      '🧽', '🌍', '🎨', '🎯', '🎪', '🎭', '🎡', '🎢',
+      '🌸', '🌼', '⭐', '🌟', '💫', '🪷', '🎠', '🎸',
+      '🎮', '🎲', '🎱', '⚽', '🏀', '🎪', '🎭', '🎨',
+      '🦋', '🐠', '🌞', '🌈', '❄️', '🍕', '🎂', '🍪'
+    ];
+    
     function adjustSpeed(factor) {
-      const sponge = document.querySelector('.sponge');
-      const currentDuration = parseFloat(getComputedStyle(sponge).animationDuration);
-      sponge.style.animationDuration = (currentDuration / factor) + 's';
+      const emoji = document.querySelector('.emoji');
+      const currentDuration = parseFloat(getComputedStyle(emoji).animationDuration);
+      emoji.style.animationDuration = (currentDuration / factor) + 's';
     }
 
     function resetSpeed() {
-      const sponge = document.querySelector('.sponge');
-      sponge.style.animationDuration = defaultDuration + 's';
+      const emoji = document.querySelector('.emoji');
+      emoji.style.animationDuration = defaultDuration + 's';
+    }
+
+    function changeEmoji() {
+      const emoji = document.querySelector('.emoji');
+      const currentEmoji = emoji.textContent;
+      let newEmoji;
+      
+      // Make sure we don't get the same emoji twice in a row
+      do {
+        newEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+      } while (newEmoji === currentEmoji);
+      
+      // Add a small animation when changing emoji
+      emoji.style.transform = 'scale(0.5)';
+      emoji.style.opacity = '0';
+      
+      setTimeout(() => {
+        emoji.textContent = newEmoji;
+        emoji.style.transform = 'scale(1)';
+        emoji.style.opacity = '1';
+      }, 150);
     }
   </script>
 </body>
