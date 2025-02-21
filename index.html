@@ -7,7 +7,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Tahoma', sans-serif;
+      font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
     }
 
     body {
@@ -17,48 +17,54 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      background: #ECE9D8;
+      background: #008080;
+      color: #000;
     }
 
     .window {
       width: 100%;
       max-width: 500px;
-      background: #fff;
-      border: 1px solid #000;
-      border-radius: 8px;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
+      background: #c0c0c0;
+      border: 2px solid;
+      border-color: #ffffff #808080 #808080 #ffffff;
+      box-shadow: 1px 1px 0 0 #000;
     }
 
     .title-bar {
-      background: linear-gradient(to right, #0A246A, #A6CAF0);
-      padding: 6px 8px;
+      background: #000080;
+      padding: 2px 3px;
       color: white;
-      font-weight: bold;
       display: flex;
       align-items: center;
     }
 
     .title-text {
       flex-grow: 1;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 1px 4px;
     }
 
     .window-buttons {
       display: flex;
-      gap: 4px;
+      gap: 2px;
     }
 
     .window-button {
-      width: 20px;
-      height: 20px;
-      background: linear-gradient(to bottom, #fff, #DFDFDF);
-      border: 1px solid #000;
-      border-radius: 3px;
+      width: 16px;
+      height: 14px;
+      background: #c0c0c0;
+      border: 1px solid;
+      border-color: #ffffff #808080 #808080 #ffffff;
+      font-size: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
       cursor: pointer;
+    }
+
+    .window-button:active {
+      border-color: #808080 #ffffff #ffffff #808080;
     }
 
     .container {
@@ -67,8 +73,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: white;
+      background: #fff;
+      border: 2px solid;
+      border-color: #808080 #ffffff #ffffff #808080;
       padding: 20px;
+      margin: 4px;
     }
 
     .emoji {
@@ -83,35 +92,64 @@
     }
 
     .controls {
-      width: 100%;
+      width: calc(100% - 8px);
+      margin: 4px;
       padding: 10px;
-      background: #ECE9D8;
+      background: #c0c0c0;
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
       flex-wrap: wrap;
-      border-top: 1px solid #D5D0C0;
     }
 
-    .xp-button {
-      padding: clamp(6px, 2vw, 10px) clamp(12px, 4vw, 20px);
-      border: 2px solid #003C74;
-      border-radius: 3px;
-      background: linear-gradient(to bottom, #EFF7FF, #B5D3FF);
+    .win98-button {
+      padding: 4px 8px;
+      background: #c0c0c0;
+      border: 2px solid;
+      border-color: #ffffff #808080 #808080 #ffffff;
       cursor: pointer;
-      font-size: clamp(12px, 3vw, 14px);
-      color: #000;
-      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      font-size: 11px;
+      position: relative;
+      min-width: 75px;
+      text-align: center;
+    }
+
+    .win98-button:active {
+      border-color: #808080 #ffffff #ffffff #808080;
+      padding: 5px 7px 3px 9px;
+    }
+
+    .win98-button:focus {
+      outline: 1px dotted #000;
+      outline-offset: -4px;
+    }
+
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 28px;
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      display: flex;
+      padding: 2px;
+    }
+
+    .start-button {
+      padding: 2px 6px;
+      background: #c0c0c0;
+      border: 2px solid;
+      border-color: #ffffff #808080 #808080 #ffffff;
       font-weight: bold;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .xp-button:hover {
-      background: linear-gradient(to bottom, #B5D3FF, #EFF7FF);
-    }
-
-    .xp-button:active {
-      background: #B5D3FF;
-      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
+    .start-button:active {
+      border-color: #808080 #ffffff #ffffff #808080;
     }
 
     @media (max-width: 480px) {
@@ -124,7 +162,7 @@
         align-items: stretch;
       }
 
-      .xp-button {
+      .win98-button {
         width: 100%;
       }
     }
@@ -133,7 +171,7 @@
 <body>
   <div class="window">
     <div class="title-bar">
-      <div class="title-text">Windows XP Emoji Spinner</div>
+      <div class="title-text">sponge.wtf</div>
       <div class="window-buttons">
         <div class="window-button">_</div>
         <div class="window-button">□</div>
@@ -144,12 +182,17 @@
       <div class="emoji">🧽</div>
     </div>
     <div class="controls">
-      <button class="xp-button" onclick="adjustSpeed(0.5)">Slower</button>
-      <button class="xp-button" onclick="adjustSpeed(2)">Faster</button>
-      <button class="xp-button" onclick="resetSpeed()">Reset Speed</button>
-      <button class="xp-button" onclick="changeEmoji()">I'm Feeling Lucky</button>
-      <button class="xp-button" onclick="restoreSponge()">Click to Sponge</button>
+      <button class="win98-button" onclick="adjustSpeed(0.5)">Slower</button>
+      <button class="win98-button" onclick="adjustSpeed(2)">Faster</button>
+      <button class="win98-button" onclick="resetSpeed()">Reset Speed</button>
+      <button class="win98-button" onclick="changeEmoji()">I'm Feeling Lucky</button>
+      <button class="win98-button" onclick="restoreSponge()">Click to Sponge</button>
     </div>
+  </div>
+  <div class="taskbar">
+    <button class="start-button">
+      <span>▶</span> Start
+    </button>
   </div>
 
   <script>
