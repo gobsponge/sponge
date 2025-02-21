@@ -7,6 +7,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Tahoma', sans-serif;
     }
 
     body {
@@ -16,18 +17,58 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
+      background: #ECE9D8;
+    }
+
+    .window {
+      width: 100%;
+      max-width: 500px;
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 8px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .title-bar {
+      background: linear-gradient(to right, #0A246A, #A6CAF0);
+      padding: 6px 8px;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .title-text {
+      flex-grow: 1;
+    }
+
+    .window-buttons {
+      display: flex;
+      gap: 4px;
+    }
+
+    .window-button {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(to bottom, #fff, #DFDFDF);
+      border: 1px solid #000;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
     }
 
     .container {
       width: 100%;
-      max-width: 500px;
       aspect-ratio: 16/9;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #f0f0f0;
-      border-radius: 8px;
-      margin-bottom: 20px;
+      background: white;
+      padding: 20px;
     }
 
     .emoji {
@@ -37,35 +78,40 @@
     }
 
     @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .controls {
       width: 100%;
-      max-width: 500px;
+      padding: 10px;
+      background: #ECE9D8;
       display: flex;
       gap: 10px;
       justify-content: center;
       flex-wrap: wrap;
+      border-top: 1px solid #D5D0C0;
     }
 
-    .speed-control {
-      padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
-      border: none;
-      border-radius: 8px;
-      background: #e0e0e0;
+    .xp-button {
+      padding: clamp(6px, 2vw, 10px) clamp(12px, 4vw, 20px);
+      border: 2px solid #003C74;
+      border-radius: 3px;
+      background: linear-gradient(to bottom, #EFF7FF, #B5D3FF);
       cursor: pointer;
-      font-size: clamp(14px, 4vw, 16px);
-      transition: background-color 0.2s;
+      font-size: clamp(12px, 3vw, 14px);
+      color: #000;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      font-weight: bold;
     }
 
-    .speed-control:hover {
-      background: #d0d0d0;
+    .xp-button:hover {
+      background: linear-gradient(to bottom, #B5D3FF, #EFF7FF);
+    }
+
+    .xp-button:active {
+      background: #B5D3FF;
+      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
     }
 
     @media (max-width: 480px) {
@@ -78,30 +124,38 @@
         align-items: stretch;
       }
 
-      .speed-control {
+      .xp-button {
         width: 100%;
-        padding: 12px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="emoji">🧽</div>
-  </div>
-  <div class="controls">
-    <button class="speed-control" onclick="adjustSpeed(0.5)">Slower</button>
-    <button class="speed-control" onclick="adjustSpeed(2)">Faster</button>
-    <button class="speed-control" onclick="resetSpeed()">Reset Speed</button>
-    <button class="speed-control" onclick="changeEmoji()">I'm Feeling Lucky</button>
-    <button class="speed-control" onclick="restoreSponge()">Click to Sponge</button>
+  <div class="window">
+    <div class="title-bar">
+      <div class="title-text">Windows XP Emoji Spinner</div>
+      <div class="window-buttons">
+        <div class="window-button">_</div>
+        <div class="window-button">□</div>
+        <div class="window-button">×</div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="emoji">🧽</div>
+    </div>
+    <div class="controls">
+      <button class="xp-button" onclick="adjustSpeed(0.5)">Slower</button>
+      <button class="xp-button" onclick="adjustSpeed(2)">Faster</button>
+      <button class="xp-button" onclick="resetSpeed()">Reset Speed</button>
+      <button class="xp-button" onclick="changeEmoji()">I'm Feeling Lucky</button>
+      <button class="xp-button" onclick="restoreSponge()">Click to Sponge</button>
+    </div>
   </div>
 
   <script>
-    const defaultDuration = 2; // seconds
+    const defaultDuration = 2;
     const defaultEmoji = '🧽';
     
-    // Array of fun emojis that look good when rotating
     const emojis = [
       '🧽', '🌍', '🎨', '🎯', '🎪', '🎭', '🎡', '🎢',
       '🌸', '🌼', '⭐', '🌟', '💫', '🪷', '🎠', '🎸',
@@ -124,12 +178,9 @@
       const emoji = document.querySelector('.emoji');
       const currentEmoji = emoji.textContent;
       let newEmoji;
-      
-      // Make sure we don't get the same emoji twice in a row
       do {
         newEmoji = emojis[Math.floor(Math.random() * emojis.length)];
       } while (newEmoji === currentEmoji);
-      
       animateEmojiChange(emoji, newEmoji);
     }
 
@@ -143,7 +194,6 @@
     function animateEmojiChange(element, newEmoji) {
       element.style.transform = 'scale(0.5)';
       element.style.opacity = '0';
-      
       setTimeout(() => {
         element.textContent = newEmoji;
         element.style.transform = 'scale(1)';
